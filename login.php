@@ -6,10 +6,11 @@ if (isset($_POST['login'])) {
     $username = $_POST['user'];
     $password = $_POST['pass'];
 
-    $cek = mysqli_query($koneksi, "SELECT * FROM users WHERE username = '$username'");
+    $query = $koneksi->query("SELECT * FROM users WHERE username = '$username'");
+    $cek = mysqli_num_rows($query);
 
-    if (mysqli_num_rows($cek) === 1) {
-        $data = mysqli_fetch_assoc($cek);
+    if ($cek > 0) {
+        $data = mysqli_fetch_assoc($query);
 
         if (password_verify($password, $data['password'])) {
             header("location:dashboard.php");

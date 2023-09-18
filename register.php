@@ -8,7 +8,7 @@ if (isset($_POST['submit'])) {
     $password1 = $_POST['password1'];
     $password2 = $_POST['password2'];
 
-    $cek_user = mysqli_query($koneksi, "SELECT * FROM users WHERE username = '$username'");
+    $cek_user = $koneksi->query("SELECT * FROM users WHERE username = '$username'");
     $cek_login = mysqli_num_rows($cek_user);
 
     if ($cek_login > 0) {
@@ -24,7 +24,7 @@ if (isset($_POST['submit'])) {
              </script>";
         } else {
             $password = password_hash($password1, PASSWORD_DEFAULT);
-            mysqli_query($koneksi, "INSERT INTO users VALUES ('','$name','$username','$password')");
+            mysqli_query($koneksi, "INSERT INTO users (id,nama,username,password) VALUES ('','$name','$username','$password')");
             echo "<script>
             alert('Data berhasil dikirim!');      
             window.location = 'login.php'  
@@ -54,7 +54,7 @@ if (isset($_POST['submit'])) {
         <br>
         <input type="password" class='text' name="password2" placeholder="Masukkan password anda" required />
         <br>
-        <input type="submit" value="SIGN UP" name="submit" />
+        <input type="submit" value="Sign Up" name="submit" />
         <p>Sudah punya akun? <a href="login.php">Login</a></p>
     </form>
 </body>
